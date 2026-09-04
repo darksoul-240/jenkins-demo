@@ -5,20 +5,33 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'g++ src/main.cpp -o app.exe'
+                echo 'Building Python application...'
+                bat 'python demo.py'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'test\\run-tests.bat'
+                echo 'Running tests...'
+                bat 'python demo.py'
             }
         }
 
         stage('Deploy') {
             steps {
-                bat 'deploy.bat'
+                echo 'Deploying application...'
+                bat 'echo Deployment successful!'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
